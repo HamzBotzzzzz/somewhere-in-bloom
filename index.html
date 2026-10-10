@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#121820">
+<title>Little Garden — A Bouquet for You</title>
+<style>
+:root{--bg:#121820;--cream:#fff4e9;--pink:#efb2c4;--peach:#f2c1a5;--sage:#8eae8e}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Georgia,"Times New Roman",serif}
+body{color:var(--cream);background:radial-gradient(ellipse at 50% 95%,#294335 0,transparent 45%),radial-gradient(ellipse at 20% 10%,#273044 0,transparent 45%),linear-gradient(160deg,#11161e,#1b252c 60%,#111b19);overflow-x:hidden}
+button{font:inherit}.scene{min-height:100svh;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:28px 18px 36px}
+.stars,.fireflies,.petals{position:absolute;inset:0;pointer-events:none}.stars{opacity:.8;background-image:radial-gradient(1px 1px at 12% 18%,#fff 99%,transparent),radial-gradient(1.5px 1.5px at 76% 12%,#f8dfe7 99%,transparent),radial-gradient(1px 1px at 89% 36%,#fff 99%,transparent),radial-gradient(1px 1px at 20% 57%,#fff 99%,transparent),radial-gradient(1px 1px at 65% 29%,#fff 99%,transparent),radial-gradient(1px 1px at 8% 77%,#f8dfe7 99%,transparent)}
+.content{position:relative;z-index:2;width:min(100%,560px);display:flex;flex-direction:column;align-items:center;text-align:center;animation:enter 1s ease both}
+.eyebrow{font:10px Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:#d6c7c1;margin-bottom:13px}
+h1{font-size:clamp(38px,10vw,62px);font-weight:400;letter-spacing:-.045em;line-height:.96;margin:0}h1 em{font-weight:400;color:#efc1cd}
+.subtitle{font-size:15px;line-height:1.7;color:#c8cfcb;max-width:300px;margin:15px auto 0}
+.stage{position:relative;width:min(100%,420px);height:clamp(280px,44vh,370px);margin:8px auto 0;overflow:hidden;touch-action:manipulation}
+.moon{position:absolute;right:15%;top:10%;width:39px;height:39px;border-radius:50%;background:#fff0dd;box-shadow:0 0 35px #ffe9d522;opacity:.8}.moon:after{content:"";position:absolute;left:11px;top:-5px;width:36px;height:36px;border-radius:50%;background:#19232b}
+.ground{position:absolute;bottom:3%;left:-20%;width:140%;height:27%;background:radial-gradient(ellipse,#79977844,transparent 70%);filter:blur(8px)}
+.stem{position:absolute;bottom:18%;left:50%;height:0;width:3px;border-radius:9px;background:linear-gradient(#b3c9a2,#547b60);transform:translateX(-50%);transition:height 1s cubic-bezier(.2,.7,.2,1)}
+.stem:before,.stem:after{content:"";position:absolute;width:27px;height:13px;background:#719674;border-radius:100% 0 100% 0;opacity:0;transition:opacity .4s}
+.stem:before{left:-24px;top:54%;transform:rotate(12deg)}.stem:after{left:2px;top:29%;transform:scaleX(-1) rotate(12deg)}
+.stem.grown{height:95px}.stem.grown:before,.stem.grown:after{opacity:1}
+.mainflower{position:absolute;left:50%;bottom:calc(18% + 82px);width:72px;height:72px;opacity:0;transform:translateX(-50%) scale(.15);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.mainflower.show{opacity:1;transform:translateX(-50%) scale(1)}
+.head{position:relative;width:70px;height:70px;animation:sway 4s ease-in-out infinite;transform-origin:50% 100%}
+.petal{position:absolute;width:29px;height:39px;left:21px;top:4px;border-radius:55% 55% 42% 42%;transform-origin:50% 88%;background:linear-gradient(135deg,#fff1f0,#e99bb7 85%);box-shadow:inset -3px -4px 8px #9d44651f}
+.petal:nth-child(1){transform:rotate(0) translateY(-5px)}.petal:nth-child(2){transform:rotate(60deg) translateY(-5px)}.petal:nth-child(3){transform:rotate(120deg) translateY(-5px)}.petal:nth-child(4){transform:rotate(180deg) translateY(-5px)}.petal:nth-child(5){transform:rotate(240deg) translateY(-5px)}.petal:nth-child(6){transform:rotate(300deg) translateY(-5px)}
+.center{position:absolute;width:17px;height:17px;border-radius:50%;left:27px;top:27px;background:radial-gradient(circle at 35% 30%,#fff0c5,#dca45f)}
+.minibloom{position:absolute;width:25px;height:25px;opacity:0;transform:scale(.1);transition:.6s}.minibloom.show{opacity:1;transform:scale(1)}
+.minibloom i{position:absolute;left:9px;top:1px;width:8px;height:15px;border-radius:70%;background:linear-gradient(#fff0ed,#e9a0b8);transform-origin:50% 12px}.minibloom i:nth-child(2){transform:rotate(72deg)}.minibloom i:nth-child(3){transform:rotate(144deg)}.minibloom i:nth-child(4){transform:rotate(216deg)}.minibloom i:nth-child(5){transform:rotate(288deg)}.minibloom b{position:absolute;left:10px;top:10px;width:6px;height:6px;border-radius:50%;background:#e8c17a}
+.firefly{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffe5bd;box-shadow:0 0 10px 3px #ffdeac3d;opacity:0;animation:float 4s ease-in-out infinite}.firefly.show{opacity:.85}
+.action{border:1px solid #fff0e266;border-radius:999px;padding:13px 24px;color:#fff5ed;background:#ffffff0a;cursor:pointer;letter-spacing:.04em;font-size:13px;min-height:46px;transition:.25s;backdrop-filter:blur(10px)}.action:hover{background:#ffffff19;transform:translateY(-2px)}
+.hint{font:10px Arial,sans-serif;letter-spacing:.1em;color:#aab4af;margin-top:13px}
+.hidden{display:none!important}.bouquet{width:min(100%,420px);height:clamp(355px,54vh,500px);margin:0 auto;position:relative}.bouquet svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 16px 25px #0003)}
+.card{width:min(100%,350px);padding:19px 22px 21px;margin:-4px auto 0;background:linear-gradient(135deg,#fff7ec,#f0ded0);color:#6c4b4b;border-radius:3px;box-shadow:0 15px 45px #0003;position:relative;transform:rotate(-1deg)}
+.card:before{content:"";position:absolute;inset:6px;border:1px solid #93655e33;pointer-events:none}.card small{font:9px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a17d7b}.card h2{font-size:29px;font-weight:400;margin:8px 0 7px}.card p{font-size:14px;line-height:1.65;margin:0}
+.actions-row{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:18px}
+.reply-btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #f4d4d2aa;border-radius:999px;padding:12px 24px;color:#fff5ed;background:linear-gradient(135deg,#c98ea3aa,#a56b7faa);text-decoration:none;font-size:13px;letter-spacing:.04em;transition:.25s;backdrop-filter:blur(10px)}
+.reply-btn:hover{background:linear-gradient(135deg,#d99bb0cc,#b87b8fcc);transform:translateY(-2px)}
+.reply-btn svg{width:15px;height:15px;fill:currentColor}
+.restart{margin-top:14px;font-size:11px;color:#bbc4bf;background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.falling{position:absolute;top:-20px;width:9px;height:14px;border-radius:90% 10% 80% 10%;background:linear-gradient(135deg,#ffe3e8,#db87a4);opacity:0;pointer-events:none;animation:fall linear forwards;z-index:5}
+.music-toggle{position:absolute;top:14px;right:14px;z-index:10;width:36px;height:36px;border-radius:50%;border:1px solid #fff0e233;background:#ffffff0a;color:#fff5ed;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);opacity:.55;transition:.25s}
+.music-toggle:hover{opacity:1;background:#ffffff19}
+
+/* ===== SPECIAL BLOOM (kelap-kelip) ===== */
+.special-wrap{position:absolute;left:50%;top:50%;width:80px;height:80px;transform:translate(-50%,-50%);pointer-events:none;z-index:3}
+.special-trigger{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:56px;height:56px;border-radius:50%;
+  background:transparent;border:0;cursor:pointer;pointer-events:auto;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+  -webkit-tap-highlight-color:transparent;
+}
+.special-trigger:hover{transform:translate(-50%,-50%) scale(1.15)}
+.special-trigger:active{transform:translate(-50%,-50%) scale(.95)}
+.special-bloom{position:relative;width:52px;height:52px;animation:specialSway 6s ease-in-out infinite}
+.special-bloom .spetal{
+  position:absolute;left:50%;top:50%;width:22px;height:32px;margin-left:-11px;margin-top:-32px;
+  border-radius:55% 55% 42% 42%;transform-origin:50% 100%;
+  background:radial-gradient(circle at 40% 30%, #fff0f2, #e77a9a 70%);
+  box-shadow:0 0 12px 2px #e77a9a55, inset -2px -3px 6px #9d44651f;
+  animation:specialPulse 4s ease-in-out infinite;
+}
+.special-bloom .spetal:nth-child(1){transform:rotate(0)}
+.special-bloom .spetal:nth-child(2){transform:rotate(60deg)}
+.special-bloom .spetal:nth-child(3){transform:rotate(120deg)}
+.special-bloom .spetal:nth-child(4){transform:rotate(180deg)}
+.special-bloom .spetal:nth-child(5){transform:rotate(240deg)}
+.special-bloom .spetal:nth-child(6){transform:rotate(300deg)}
+.special-bloom .score{
+  position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%, #fff5d0, #d8a05a);
+  box-shadow:0 0 10px 2px #ffdf9555;
+}
+.special-halo{
+  position:absolute;inset:-6px;border-radius:50%;
+  background:radial-gradient(circle, #ff9bb855 0%, transparent 60%);
+  animation:haloPulse 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes specialSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(5deg)}}
+@keyframes specialPulse{
+  0%,100%{background:radial-gradient(circle at 40% 30%, #fff0f2, #e77a9a 70%);box-shadow:0 0 12px 2px #e77a9a55}
+  33%{background:radial-gradient(circle at 40% 30%, #fff5f0, #f0b8b0 70%);box-shadow:0 0 14px 3px #f0b8b066}
+  66%{background:radial-gradient(circle at 40% 30%, #fffaf5, #f0d5c8 70%);box-shadow:0 0 16px 3px #f0d5c877}
+}
+@keyframes haloPulse{
+  0%,100%{opacity:.5;transform:scale(1)}
+  50%{opacity:.9;transform:scale(1.15)}
+}
+
+/* ===== PHOTO OVERLAY ===== */
+.photo-overlay{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:radial-gradient(ellipse at 50% 40%, #1a2028ee, #0a0e12fa);
+  opacity:0;pointer-events:none;transition:opacity 1.2s ease;
+  padding:24px;
+}
+.photo-overlay.show{opacity:1;pointer-events:auto}
+.polaroid{
+  background:linear-gradient(160deg,#fffaf2,#f0e2d0);
+  padding:14px 14px 54px 14px;
+  box-shadow:0 30px 70px #00000099, 0 0 0 1px #ffffff22 inset;
+  transform:rotate(-2deg) scale(.7);
+  opacity:0;
+  transition:transform 1s cubic-bezier(.2,.8,.2,1), opacity .8s ease;
+  max-width:min(78vw, 320px);
+  position:relative;
+}
+.photo-overlay.show .polaroid{transform:rotate(-2deg) scale(1);opacity:1;transition-delay:.35s}
+.polaroid-img{
+  display:block;width:100%;aspect-ratio:1/1;object-fit:cover;
+  background:linear-gradient(135deg,#2a3038,#1a1f26);
+  border:1px solid #00000022;
+}
+.polaroid-caption{
+  position:absolute;left:0;right:0;bottom:14px;
+  text-align:center;
+  font-family:"Brush Script MT","Segoe Script","Bradley Hand",cursive;
+  font-size:20px;color:#5c4343;letter-spacing:.02em;
+  padding:0 14px;
+}
+.photo-hint{
+  margin-top:22px;font:10px Arial,sans-serif;letter-spacing:.18em;
+  text-transform:uppercase;color:#aab4af;opacity:0;
+  transition:opacity .8s ease .8s;
+}
+.photo-overlay.show .photo-hint{opacity:.7}
+
+/* Fade layer untuk transisi */
+.fade-layer{
+  position:absolute;inset:0;background:#0a0e12;opacity:0;pointer-events:none;
+  transition:opacity .9s ease;z-index:4;
+}
+.fade-layer.active{opacity:1}
+
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(4deg)}}@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(8px,-16px)}}@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes fall{0%{opacity:0;transform:translateY(-10px)}10%{opacity:.9}100%{opacity:0;transform:translate(var(--drift),110vh) rotate(520deg)}}
+@media(max-height:690px){.scene{padding-top:18px;padding-bottom:18px}.stage{height:255px}.bouquet{height:330px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main class="scene" id="scene">
+  <div class="stars"></div><div class="fireflies" id="fireflies"></div><div class="petals" id="petals"></div>
+  <button class="music-toggle" id="musicToggle" aria-label="toggle music">♪</button>
+  <audio id="bgAudio" loop preload="auto"></audio>
+
+  <section class="content" id="garden">
+    <div class="eyebrow">a little something, just for you</div>
+    <h1>Little<br><em>Garden</em></h1>
+    <p class="subtitle">some little flowers are waiting to bloom.</p>
+    <div class="stage">
+      <div class="moon"></div><div class="ground"></div><div class="stem" id="stem"></div>
+      <div class="mainflower" id="mainflower"><div class="head"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><b class="center"></b></div></div>
+      <div class="minibloom" style="left:20%;top:52%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="minibloom" style="left:72%;top:39%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="minibloom" style="left:34%;top:31%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="minibloom" style="left:63%;top:61%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="minibloom" style="left:14%;top:35%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="minibloom" style="left:82%;top:54%"><i></i><i></i><i></i><i></i><i></i><b></b></div>
+    </div>
+    <button class="action" id="bloom">let it bloom ✦</button>
+    <div class="hint" id="hint">tap the button and watch the garden grow</div>
+  </section>
+
+  <section class="content hidden" id="final">
+    <div class="eyebrow">picked with care</div>
+    <h1>A bouquet<br><em>for you.</em></h1>
+    <p class="subtitle">every little bloom found its way here.</p>
+
+    <div class="bouquet">
+      <!-- Fade layer untuk transisi -->
+      <div class="fade-layer" id="fadeLayer"></div>
+
+      <!-- SPECIAL BLOOM — overlay di atas SVG (trigger) -->
+      <div class="special-wrap">
+        <button class="special-trigger" id="specialTrigger" aria-label="a special bloom">
+          <div class="special-bloom">
+            <div class="special-halo"></div>
+            <i class="spetal"></i><i class="spetal"></i><i class="spetal"></i>
+            <i class="spetal"></i><i class="spetal"></i><i class="spetal"></i>
+            <b class="score"></b>
+          </div>
+        </button>
+      </div>
+
+      <svg viewBox="0 0 400 490" role="img" aria-label="A lush bouquet of pink, peach, and white flowers wrapped in cream paper with a satin ribbon">
+        <defs>
+          <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0dc"/><stop offset=".5" stop-color="#d9bca8"/><stop offset="1" stop-color="#f8e7d6"/></linearGradient>
+          <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4d4d2"/><stop offset=".5" stop-color="#bf7f91"/><stop offset="1" stop-color="#f4d8d4"/></linearGradient>
+          <linearGradient id="stemcolor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a5c59b"/><stop offset="1" stop-color="#3e7156"/></linearGradient>
+          <radialGradient id="pink" cx=".3" cy=".2" r=".9"><stop stop-color="#ffe7e8"/><stop offset=".55" stop-color="#f2a9bc"/><stop offset="1" stop-color="#bd6888"/></radialGradient>
+          <radialGradient id="peach" cx=".3" cy=".2" r=".9"><stop stop-color="#fff0d9"/><stop offset=".56" stop-color="#f5b99e"/><stop offset="1" stop-color="#c77d72"/></radialGradient>
+          <radialGradient id="white" cx=".3" cy=".2" r=".9"><stop stop-color="#fffdf5"/><stop offset=".68" stop-color="#f2e2dd"/><stop offset="1" stop-color="#c7a9ae"/></radialGradient>
+          <g id="rose"><g fill="url(#pink)" stroke="#d788a2" stroke-width=".6"><ellipse rx="14" ry="22" cy="-10"/><ellipse rx="14" ry="22" cy="-10" transform="rotate(60)"/><ellipse rx="14" ry="22" cy="-10" transform="rotate(120)"/><ellipse rx="14" ry="22" cy="-10" transform="rotate(180)"/><ellipse rx="14" ry="22" cy="-10" transform="rotate(240)"/><ellipse rx="14" ry="22" cy="-10" transform="rotate(300)"/></g><circle r="14" fill="#e99bb2"/><path d="M-9 0Q-2 -13 5 -7Q12 -1 2 7Q-5 10 -7 3Q-7 -2 0 -3Q6 -3 5 2" fill="none" stroke="#b65f80" stroke-width="3" stroke-linecap="round"/></g>
+          <g id="peachrose"><g fill="url(#peach)" stroke="#d99b85" stroke-width=".5"><ellipse rx="13" ry="21" cy="-9"/><ellipse rx="13" ry="21" cy="-9" transform="rotate(60)"/><ellipse rx="13" ry="21" cy="-9" transform="rotate(120)"/><ellipse rx="13" ry="21" cy="-9" transform="rotate(180)"/><ellipse rx="13" ry="21" cy="-9" transform="rotate(240)"/><ellipse rx="13" ry="21" cy="-9" transform="rotate(300)"/></g><circle r="12" fill="#f4c0a4"/><path d="M-8 0Q-2 -12 4 -6Q10 0 2 7Q-5 9 -6 3Q-7 -2 0 -3Q5 -2 4 2" fill="none" stroke="#c77d72" stroke-width="2.8" stroke-linecap="round"/></g>
+          <g id="whiterose"><g fill="url(#white)" stroke="#ddc7c7" stroke-width=".55"><ellipse rx="12" ry="20" cy="-8"/><ellipse rx="12" ry="20" cy="-8" transform="rotate(60)"/><ellipse rx="12" ry="20" cy="-8" transform="rotate(120)"/><ellipse rx="12" ry="20" cy="-8" transform="rotate(180)"/><ellipse rx="12" ry="20" cy="-8" transform="rotate(240)"/><ellipse rx="12" ry="20" cy="-8" transform="rotate(300)"/></g><circle r="11" fill="#f7e5e2"/><path d="M-7 0Q-1 -10 4 -5Q9 0 2 6Q-4 8 -5 2Q-5 -2 0 -2" fill="none" stroke="#caa8b1" stroke-width="2.4"/></g>
+          <g id="tulip"><path d="M0 3C-16 -8 -16 -31 -8 -42C-5 -29 0 -24 2 -42C13 -30 17 -10 0 3Z" fill="#f1a9bf" stroke="#d58aa4"/><path d="M0 -1C-4 -14 -3 -26 2 -42C7 -28 11 -12 0 -1Z" fill="#ffd8de"/><path d="M0 2Q2 34 0 69" fill="none" stroke="url(#stemcolor)" stroke-width="4" stroke-linecap="round"/><path d="M0 38Q-23 18 -26 37Q-19 52 0 48" fill="#739b78"/></g>
+          <g id="tiny"><g fill="#fff6ec"><ellipse rx="3.5" ry="7" cy="-4"/><ellipse rx="3.5" ry="7" cy="-4" transform="rotate(72)"/><ellipse rx="3.5" ry="7" cy="-4" transform="rotate(144)"/><ellipse rx="3.5" ry="7" cy="-4" transform="rotate(216)"/><ellipse rx="3.5" ry="7" cy="-4" transform="rotate(288)"/></g><circle r="2.7" fill="#e9c078"/></g>
+          <g id="leaf"><path d="M0 0C-21 -18 -29 -1 -6 9C-1 7 0 4 0 0Z" fill="#759b78"/><path d="M-1 2L-20 -7" fill="none" stroke="#a8c4a0"/></g>
+        </defs>
+        <ellipse cx="200" cy="437" rx="115" ry="20" fill="#000" opacity=".16"/>
+        <g fill="none" stroke="url(#stemcolor)" stroke-width="4" stroke-linecap="round"><path d="M196 393Q153 278 98 141"/><path d="M201 397Q165 267 145 125"/><path d="M203 400Q205 272 199 112"/><path d="M205 397Q239 270 253 127"/><path d="M208 397Q272 278 305 151"/><path d="M195 399Q124 306 75 205"/><path d="M211 399Q286 316 331 208"/><path d="M200 400Q178 290 171 165"/><path d="M210 401Q224 294 226 165"/><path d="M203 399Q191 320 119 220"/></g>
+        <g><use href="#leaf" transform="translate(137 245) rotate(24) scale(.9)"/><use href="#leaf" transform="translate(230 273) rotate(165) scale(.95)"/><use href="#leaf" transform="translate(162 300) rotate(15) scale(.8)"/><use href="#leaf" transform="translate(252 322) rotate(160) scale(.75)"/><use href="#leaf" transform="translate(121 281) rotate(8) scale(.7)"/><use href="#leaf" transform="translate(286 280) rotate(170) scale(.8)"/><use href="#leaf" transform="translate(187 348) rotate(30) scale(.65)"/><use href="#leaf" transform="translate(221 345) rotate(150) scale(.7)"/></g>
+        <g><use href="#tiny" transform="translate(96 169) scale(1.1)"/><use href="#tiny" transform="translate(111 150) scale(.9)"/><use href="#tiny" transform="translate(124 177) scale(1.1)"/><use href="#tiny" transform="translate(277 166) scale(1.1)"/><use href="#tiny" transform="translate(292 184) scale(.9)"/><use href="#tiny" transform="translate(316 190) scale(1.1)"/><use href="#tiny" transform="translate(80 214) scale(.8)"/><use href="#tiny" transform="translate(326 224) scale(.8)"/><use href="#tiny" transform="translate(136 130) scale(.75)"/><use href="#tiny" transform="translate(251 137) scale(.85)"/></g>
+        <g><use href="#peachrose" transform="translate(116 179) scale(1.13)"/><use href="#whiterose" transform="translate(156 146) scale(1.03)"/><use href="#rose" transform="translate(200 127) scale(1.15)"/><use href="#peachrose" transform="translate(244 151) scale(1.05)"/><use href="#whiterose" transform="translate(286 182) scale(1.05)"/><use href="#rose" transform="translate(82 222) scale(.95)"/><use href="#peachrose" transform="translate(319 226) scale(.94)"/><use href="#rose" transform="translate(139 211) scale(1.17)"/><use href="#whiterose" transform="translate(182 190) scale(1.12)"/><use href="#rose" transform="translate(226 195) scale(1.16)"/><use href="#peachrose" transform="translate(269 216) scale(1.15)"/><use href="#tulip" transform="translate(173 139) rotate(-7) scale(.78)"/><use href="#tulip" transform="translate(258 149) rotate(9) scale(.75)"/><use href="#tulip" transform="translate(103 194) rotate(-15) scale(.65)"/><use href="#tulip" transform="translate(302 205) rotate(12) scale(.68)"/></g>
+        <path d="M80 235Q123 267 200 276Q278 267 320 235L284 399Q244 426 200 430Q155 426 116 399Z" fill="#c7a58f" opacity=".72"/>
+        <path d="M80 235Q122 271 200 276L169 421Q133 407 116 399Z" fill="url(#paper)"/><path d="M320 235Q277 271 200 276L233 421Q271 408 284 399Z" fill="url(#paper)"/>
+        <path d="M121 260Q159 289 200 287L177 414Q153 406 141 395Z" fill="#fff2e4" opacity=".75"/><path d="M278 260Q241 287 200 287L223 414Q250 405 264 395Z" fill="#c7a58f" opacity=".4"/>
+        <path d="M80 235Q123 267 200 276Q278 267 320 235" fill="none" stroke="#f8e9d8" stroke-width="2"/>
+        <path d="M198 358C155 319 126 341 154 368C170 381 190 372 198 365Z" fill="url(#ribbon)" stroke="#c18796"/><path d="M202 358C244 319 275 342 246 369C229 381 210 373 202 365Z" fill="url(#ribbon)" stroke="#c18796"/>
+        <path d="M192 366Q169 403 179 434Q193 416 201 371Z" fill="url(#ribbon)" stroke="#c18796"/><path d="M207 366Q236 394 231 427Q210 412 199 371Z" fill="url(#ribbon)" stroke="#c18796"/><ellipse cx="200" cy="360" rx="12" ry="11" fill="url(#ribbon)" stroke="#c18796"/>
+        <g fill="#fff1d7" opacity=".8"><path d="M57 145l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z"/><path d="M330 120l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5Z"/><circle cx="75" cy="290" r="2"/><circle cx="330" cy="295" r="1.7"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <small>a little garden, for rani — from ilhamm</small>
+      <h2>just because</h2>
+      <p>for someone who makes ordinary little moments feel a little more special.</p>
+    </div>
+
+    <div class="actions-row">
+      <a class="reply-btn" id="replyBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.22-3.67-.77-3.11-1.22-5.07-4.4-5.22-4.6-.15-.2-1.25-1.66-1.25-3.17 0-1.5.79-2.24 1.07-2.55.28-.31.61-.39.82-.39.2 0 .41 0 .59.01.19.01.44-.07.69.53.24.6.83 2.1.9 2.25.07.15.12.33.02.53-.1.2-.15.33-.29.5-.15.18-.31.39-.44.53-.15.15-.3.31-.13.61.17.3.77 1.26 1.64 2.04 1.13 1.01 2.08 1.32 2.38 1.47.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.39-.24.66-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.34.07.13.07.75-.17 1.43Z"/></svg>
+        reply
+      </a>
+    </div>
+    <button class="restart" id="restart">watch the garden bloom again ↗</button>
+  </section>
+
+  <!-- ===== PHOTO OVERLAY ===== -->
+  <div class="photo-overlay" id="photoOverlay">
+    <div class="polaroid">
+      <img class="polaroid-img" id="polaroidImg" src="" alt="a favorite view">
+      <div class="polaroid-caption" id="polaroidCaption">youre my panasea :3</div>
+    </div>
+    <div class="photo-hint">tap anywhere to close</div>
+  </div>
+</main>
+
+<script>
+(() => {
+ // ====== GANTI INI ======
+ const AUDIO_URL = "https://files.catbox.moe/gzpg6v.mp3";
+ const WA_NUMBER = "6288214989352";
+ const WA_TEXT   = "MAKASIHHH ILHAMM";
+ const FOTO_URL  ="https://files.catbox.moe/dorf29.png";
+// https://files.catbox.moe/oqlx13.jpg <-- isi link fotonya
+ const CAPTION   = "the reason this garden grows."; // <-- caption polaroid
+ // ========================
+
+ const garden=document.getElementById('garden'), final=document.getElementById('final');
+ const button=document.getElementById('bloom'), stem=document.getElementById('stem'), flower=document.getElementById('mainflower');
+ const hint=document.getElementById('hint'), minis=[...document.querySelectorAll('.minibloom')], fireflies=document.getElementById('fireflies'), petals=document.getElementById('petals');
+ const audio=document.getElementById('bgAudio'), musicToggle=document.getElementById('musicToggle');
+ const replyBtn=document.getElementById('replyBtn');
+ const specialTrigger=document.getElementById('specialTrigger');
+ const photoOverlay=document.getElementById('photoOverlay');
+ const polaroidImg=document.getElementById('polaroidImg');
+ const polaroidCaption=document.getElementById('polaroidCaption');
+ const fadeLayer=document.getElementById('fadeLayer');
+
+ // Set audio
+ if(AUDIO_URL && AUDIO_URL !== "AUDIO_URL_DISINI"){ audio.src = AUDIO_URL; }
+ audio.volume = 0.45;
+
+ // Setup WA
+ replyBtn.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_TEXT)}`;
+
+ // Setup polaroid
+ if(FOTO_URL && FOTO_URL !== "FOTO_URL_DISINI"){ polaroidImg.src = FOTO_URL; }
+ polaroidCaption.textContent = CAPTION;
+
+ // Fireflies
+ let started=false;
+ for(let i=0;i<18;i++){const f=document.createElement('i');f.className='firefly';f.style.left=(7+Math.random()*86)+'%';f.style.top=(18+Math.random()*63)+'%';f.style.animationDelay=(Math.random()*4)+'s';f.style.animationDuration=(3+Math.random()*4)+'s';fireflies.appendChild(f);setTimeout(()=>f.classList.add('show'),200+i*90)}
+
+ function shower(n){for(let i=0;i<n;i++){const p=document.createElement('i');p.className='falling';p.style.left=Math.random()*100+'%';p.style.setProperty('--drift',(Math.random()*150-75)+'px');p.style.animationDuration=(4+Math.random()*4)+'s';p.style.animationDelay=Math.random()*1.4+'s';petals.appendChild(p);setTimeout(()=>p.remove(),9500)}}
+
+ // Audio control
+ let audioStarted=false;
+ function tryPlay(){ if(!audio.src) return; const p=audio.play(); if(p&&p.catch)p.catch(()=>{}); }
+ function toggleMusic(){ if(audio.paused){tryPlay();musicToggle.textContent='♪';}else{audio.pause();musicToggle.textContent='✕';} }
+ musicToggle.addEventListener('click', toggleMusic);
+
+ // Bloom
+ button.addEventListener('click',()=>{
+   if(started)return;
+   started=true;
+   button.disabled=true;
+   button.textContent='watch it grow';
+   hint.textContent='little by little, a garden comes to life';
+   if(!audioStarted){ audioStarted=true; tryPlay(); }
+   stem.classList.add('grown');
+   setTimeout(()=>flower.classList.add('show'),500);
+   minis.forEach((m,i)=>setTimeout(()=>m.classList.add('show'),450+i*220));
+   shower(16);
+   setTimeout(()=>{garden.classList.add('hidden');final.classList.remove('hidden');shower(34);window.scrollTo({top:0,behavior:'smooth'})},2600)
+ });
+
+ // ====== SPECIAL BLOOM → PHOTO ======
+ let photoOpen=false;
+ specialTrigger.addEventListener('click',()=>{
+   if(photoOpen)return;
+   photoOpen=true;
+   // fade dulu
+   fadeLayer.classList.add('active');
+   // shower bunga jatuh
+   shower(40);
+   // setelah fade, munculin polaroid
+   setTimeout(()=>{
+     photoOverlay.classList.add('show');
+     fadeLayer.classList.remove('active');
+   },850);
+ });
+
+ // Close photo
+ photoOverlay.addEventListener('click',(e)=>{
+   if(e.target.closest('.polaroid'))return;
+   photoOverlay.classList.remove('show');
+   setTimeout(()=>{photoOpen=false;},500);
+ });
+
+ // Restart
+ document.getElementById('restart').addEventListener('click',()=>{
+   final.classList.add('hidden');garden.classList.remove('hidden');
+   started=false;button.disabled=false;button.textContent='let it bloom ✦';
+   hint.textContent='tap the button and watch the garden grow';
+   stem.classList.remove('grown');flower.classList.remove('show');
+   minis.forEach(m=>m.classList.remove('show'));
+   photoOverlay.classList.remove('show');
+   photoOpen=false;
+   window.scrollTo({top:0,behavior:'smooth'})
+ });
+})();
+</script>
+</body>
+</html>
